@@ -14,16 +14,17 @@
 
 import FixedDataTableHelper from 'FixedDataTableHelper';
 import React from 'React';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import FixedDataTableCell from 'FixedDataTableCell';
 
 import cx from 'cx';
 import FixedDataTableTranslateDOMPosition from 'FixedDataTableTranslateDOMPosition';
 
-var {PropTypes} = React;
-
 var DIR_SIGN = FixedDataTableHelper.DIR_SIGN;
 
-var FixedDataTableCellGroupImpl = React.createClass({
+var FixedDataTableCellGroupImpl = createReactClass({
+  displayName: 'FixedDataTableCellGroupImpl',
 
   /**
    * PropTypes are disabled in this component, because having them on slows
@@ -130,6 +131,8 @@ var FixedDataTableCellGroupImpl = React.createClass({
     var onColumnReorder = cellIsReorderable ? this.props.onColumnReorder : null;
 
     var className = columnProps.cellClassName;
+    var pureRendering = columnProps.pureRendering || false;
+
     return (
       <FixedDataTableCell
         isScrolling={this.props.isScrolling}
@@ -151,6 +154,7 @@ var FixedDataTableCellGroupImpl = React.createClass({
         left={left}
         cell={columnProps.cell}
         columnGroupWidth={columnGroupWidth}
+        pureRendering={pureRendering}
       />
     );
   },
@@ -164,7 +168,8 @@ var FixedDataTableCellGroupImpl = React.createClass({
   },
 });
 
-var FixedDataTableCellGroup = React.createClass({
+var FixedDataTableCellGroup = createReactClass({
+  displayName: 'FixedDataTableCellGroup',
 
   /**
    * PropTypes are disabled in this component, because having them on slows
@@ -207,6 +212,7 @@ var FixedDataTableCellGroup = React.createClass({
 
     var style = {
       height: props.height,
+      width: props.width
     };
 
     if (DIR_SIGN === 1) {
